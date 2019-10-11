@@ -13,7 +13,7 @@ ADDRESS_VERSION = 111
 SEGWIT_ADDRESS_VERSION = 196
 RPC_PORT = 17766
 RPC_CHECK = defer.inlineCallbacks(lambda bitcoind: defer.returnValue(
-            (yield helper.check_genesis_block(bitcoind, 'ffbb50fc9898cdd36ec163e6ba23230164c0052a28876255b7dcf2cd36'))
+            (yield helper.check_genesis_block(bitcoind, '000000ffbb50fc9898cdd36ec163e6ba23230164c0052a28876255b7dcf2cd36'))
             ))
 SUBSIDY_FUNC = lambda height: __import__('groestlcoin_subsidy').getBlockBaseValue(0, height+1)
 POW_FUNC = data.hash_groestl
