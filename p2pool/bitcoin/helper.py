@@ -13,16 +13,20 @@ def check(bitcoind, net):
     if not (yield net.PARENT.RPC_CHECK(bitcoind)):
         print >>sys.stderr, "    Check failed! Make sure that you're connected to the right groestlcoind with --groestlcoind-rpc-port!"
         raise deferral.RetrySilentlyException()
-    
+
     version_check_result = net.VERSION_CHECK((yield bitcoind.rpc_getnetworkinfo())['version'])
     if version_check_result == True: version_check_result = None # deprecated
     if version_check_result == False: version_check_result = 'Coin daemon too old! Upgrade!' # deprecated
     if version_check_result is not None:
         print >>sys.stderr, '    ' + version_check_result
         raise deferral.RetrySilentlyException()
-    
+
     try:
         blockchaininfo = yield bitcoind.rpc_getblockchaininfo()
+        try:
+            softforks_supported = set(item['id'] for item in blockchaininfo.get('softforks', [])) # not working with 2.19.1 and above
+        except TypeError:
+            softforks_supported = set(item for item in blockchaininfo.get('softforks', [])) # fix for 2.19.1 and above
         softforks_supported = set(item['id'] for item in blockchaininfo.get('softforks', []))
         try:
             softforks_supported |= set(item['id'] for item in blockchaininfo.get('bip9_softforks', []))
