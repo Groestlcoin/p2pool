@@ -27,7 +27,6 @@ def check(bitcoind, net):
             softforks_supported = set(item['id'] for item in blockchaininfo.get('softforks', [])) # not working with 2.19.1 and above
         except TypeError:
             softforks_supported = set(item for item in blockchaininfo.get('softforks', [])) # fix for 2.19.1 and above
-        softforks_supported = set(item['id'] for item in blockchaininfo.get('softforks', []))
         try:
             softforks_supported |= set(item['id'] for item in blockchaininfo.get('bip9_softforks', []))
         except TypeError: # https://github.com/bitcoin/bitcoin/pull/7863
