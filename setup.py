@@ -30,10 +30,10 @@ try:
     sys.argv[1:] = ['py2exe']
     setup(name='p2pool',
         version=version,
-        description='Peer-to-peer Bitcoin mining pool',
-        author='Forrest Voight',
-        author_email='forrest@forre.st',
-        url='http://p2pool.forre.st/',
+        description='Peer-to-peer Groestlcoin mining pool',
+        author='Groestlcoin Developers',
+        author_email='groestlcoin@gmail.com',
+        url='http://http://testp2pool.groestlcoin.org:21330/static/',
         data_files=[
             ('', ['README.md']),
             ("Microsoft.VC90.MFC", mfcfiles),
